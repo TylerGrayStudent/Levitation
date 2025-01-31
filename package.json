@@ -16,6 +16,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@eslint/js": "^9.8.0",
     "@nx/esbuild": "20.4.0",
     "@nx/eslint": "20.4.0",
