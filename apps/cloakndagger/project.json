@@ -41,7 +41,13 @@
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build",
+        {
+          "target": "build",
+          "projects": "identifier"
+        }
+      ],
       "options": {
         "buildTarget": "cloakndagger:build",
         "runBuildTargetDependencies": false
