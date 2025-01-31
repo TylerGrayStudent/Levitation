@@ -28,6 +28,9 @@
     },
     "e2e-ci--**/*": {
       "dependsOn": ["^build"]
+    },
+    "build-custom-server": {
+      "cache": true
     }
   },
   "plugins": [
@@ -41,8 +44,7 @@
       "plugin": "@nx/jest/plugin",
       "options": {
         "targetName": "test"
-      },
-      "exclude": ["apps/cloakndagger-e2e/**/*"]
+      }
     },
     {
       "plugin": "@nx/next/plugin",
@@ -60,12 +62,41 @@
       "options": {
         "targetName": "e2e"
       }
+    },
+    {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "testTargetName": "test",
+        "serveTargetName": "serve",
+        "devTargetName": "dev",
+        "previewTargetName": "preview",
+        "serveStaticTargetName": "serve-static",
+        "typecheckTargetName": "typecheck",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
+      }
     }
   ],
   "packageManager": "bun",
   "generators": {
     "@nx/next": {
       "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    },
+    "@nx/react": {
+      "application": {
+        "babel": true,
+        "style": "css",
+        "linter": "eslint",
+        "bundler": "vite"
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
         "style": "css",
         "linter": "eslint"
       }

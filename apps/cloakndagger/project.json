@@ -1,74 +1,42 @@
 {
   "name": "cloakndagger",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/cloakndagger/src",
+  "sourceRoot": "apps/cloakndagger",
   "projectType": "application",
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/esbuild:esbuild",
-      "outputs": ["{options.outputPath}"],
+      "dependsOn": ["^build", "build-custom-server"]
+    },
+    "build-custom-server": {
+      "executor": "@nx/js:swc",
       "defaultConfiguration": "production",
       "options": {
-        "platform": "node",
         "outputPath": "dist/apps/cloakndagger",
-        "format": ["cjs"],
-        "bundle": false,
-        "main": "apps/cloakndagger/src/main.ts",
-        "tsConfig": "apps/cloakndagger/tsconfig.app.json",
-        "assets": ["apps/cloakndagger/src/assets"],
-        "generatePackageJson": true,
-        "esbuildOptions": {
-          "sourcemap": true,
-          "outExtension": {
-            ".js": ".js"
-          }
-        }
+        "main": "apps/cloakndagger/server/main.ts",
+        "tsConfig": "apps/cloakndagger/tsconfig.server.json",
+        "clean": false,
+        "assets": []
       },
       "configurations": {
         "development": {},
-        "production": {
-          "generateLockfile": true,
-          "esbuildOptions": {
-            "sourcemap": false,
-            "outExtension": {
-              ".js": ".js"
-            }
-          }
-        }
+        "production": {}
       }
     },
-    "serve": {
+    "serve-custom-server": {
       "executor": "@nx/js:node",
-      "defaultConfiguration": "development",
-      "dependsOn": [
-        "build",
-        {
-          "target": "build",
-          "projects": "identifier"
-        }
-      ],
+      "defaultConfiguration": "production",
       "options": {
-        "buildTarget": "cloakndagger:build",
-        "runBuildTargetDependencies": false
+        "buildTarget": "cloakndagger:build-custom-server"
       },
       "configurations": {
         "development": {
-          "buildTarget": "cloakndagger:build:development"
+          "buildTarget": "cloakndagger:build-custom-server:development"
         },
         "production": {
-          "buildTarget": "cloakndagger:build:production"
+          "buildTarget": "cloakndagger:build-custom-server:production"
         }
       }
-    },
-    "test": {
-      "options": {
-        "passWithNoTests": true
-      }
-    },
-    "docker-build": {
-      "dependsOn": ["build"],
-      "command": "docker build -f apps/cloakndagger/Dockerfile . -t cloakndagger"
     }
   }
 }
