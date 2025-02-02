@@ -24,7 +24,6 @@ export const generateAccessToken = async (code: string, clientId: string) => {
   await prisma.oAuthToken.update({
     where: { accessToken: code },
     data: {
-      accessToken,
       refreshToken,
       expiresAt: new Date(Date.now() + 1000 * 60 * 60),
     },

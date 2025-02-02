@@ -3,6 +3,7 @@ import styles from './app.module.css';
 
 const LoginPage = () => {
   const [codeVerifier, setCodeVerifier] = useState('');
+  const [accessToken, setAccessToken] = useState('');
 
   useEffect(() => {
     // Check if there is an authorization code in the URL fragment
@@ -81,6 +82,7 @@ const LoginPage = () => {
 
     if (tokenResponse.ok) {
       const tokenData = await tokenResponse.json();
+      setAccessToken(tokenData.access_token);
       console.log('Access token:', tokenData.access_token);
       // Handle the access token (e.g., store it, use it for API requests, etc.)
     } else {
@@ -89,11 +91,17 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: '40vw', wordBreak: 'break-all' }}>
       <h1 className={styles.title}>Login</h1>
       <button className={styles.idpButton} onClick={handleIdpLogin}>
         Login with IDP
       </button>
+      {accessToken && (
+        <div>
+          <h2>Access Token</h2>
+          <p>{accessToken}</p>
+        </div>
+      )}
     </div>
   );
 };
