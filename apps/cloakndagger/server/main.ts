@@ -6,9 +6,9 @@
  * Node - https://github.com/vercel/next.js/blob/canary/examples/custom-server
  */
 import { createServer } from 'http';
+import next from 'next';
 import { parse } from 'node:url';
 import * as path from 'path';
-import next from 'next';
 
 // Next.js server options:
 // - The environment variable is set by `@nx/next:server` when running the dev server.

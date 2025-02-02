@@ -1,1 +1,19 @@
-/* Your styles goes here. */
+.title {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.idpButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  color: white;
+  background-color: #0070f3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.idpButton:hover {
+  background-color: #005bb5;
+}
