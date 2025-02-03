@@ -63,7 +63,7 @@ const authorize = async (req: NextRequest) => {
   }
 
   console.log(4);
-  if (client.redirectUri.includes(redirect_uri)) {
+  if (client.redirectUris.includes(redirect_uri)) {
     return NextResponse.json(
       { message: 'Invalid redirect URI' },
       { status: 400 }
