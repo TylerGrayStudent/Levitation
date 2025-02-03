@@ -35,7 +35,7 @@ const authorize = async (req: NextRequest) => {
   }
 
   // Read the session cookie
-  if (!cookies.get('session')) {
+  if (!cookies.get('session')?.value) {
     // Redirect to login page
     const loginUrl = new URL('/login', req.nextUrl.origin);
     loginUrl.search = req.nextUrl.search;
@@ -77,8 +77,8 @@ const authorize = async (req: NextRequest) => {
   );
 
   console.log(6);
-  console.log('redirect', `${redirect_uri}#code=${authCode}`);
-  return NextResponse.redirect(`${redirect_uri}#code=${authCode}`);
+  console.log('redirect', `${redirect_uri}?code=${authCode}`);
+  return NextResponse.redirect(`${redirect_uri}?code=${authCode}`);
 };
 
 export { authorize as GET };

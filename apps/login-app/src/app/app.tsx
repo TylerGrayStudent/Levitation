@@ -2,20 +2,16 @@ import { useEffect, useState } from 'react';
 import styles from './app.module.css';
 
 const LoginPage = () => {
-  const [codeVerifier, setCodeVerifier] = useState('');
+  const [, setCodeVerifier] = useState('');
   const [accessToken, setAccessToken] = useState('');
 
   useEffect(() => {
-    // Check if there is an authorization code in the URL fragment
-    const hash = window.location.hash;
-    console.log('hash:', hash);
-    if (hash) {
-      const params = new URLSearchParams(hash.substring(1));
-      const code = params.get('code');
-      if (code) {
-        // Exchange the authorization code for an access token
-        exchangeCodeForToken(code);
-      }
+    // Check if there is an authorization code in the query params
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get('code');
+    if (code) {
+      // Exchange the authorization code for an access token
+      exchangeCodeForToken(code);
     }
   }, []);
 

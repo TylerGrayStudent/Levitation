@@ -3,8 +3,8 @@
 import { useState } from 'react';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('t@t.com');
+  const [password, setPassword] = useState('passwordpassword');
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -26,6 +26,11 @@ const LoginPage = () => {
       const response_type = urlParams.get('response_type');
       const code_challenge = urlParams.get('code_challenge');
       const code_challenge_method = urlParams.get('code_challenge_method');
+      console.log('client_id', client_id);
+      console.log('redirect_uri', redirect_uri);
+      console.log('response_type', response_type);
+      console.log('code_challenge', code_challenge);
+      console.log('code_challenge_method', code_challenge_method);
 
       // Call the authorize endpoint
       const authorizeResponse = await fetch(
@@ -47,6 +52,7 @@ const LoginPage = () => {
 
       if (authorizeResponse.ok && authorizeResponse.redirected) {
         // Manually handle the redirect
+        console.log('Redirecting to', authorizeResponse.url);
         window.location.href = authorizeResponse.url;
       } else {
         console.error('Authorization failed');
