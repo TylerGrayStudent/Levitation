@@ -31,8 +31,8 @@ model OAuthClient {
   id           String   @id @default(uuid())
   name         String
   clientId     String   @unique
-  clientSecret String
-  redirectUri  String
+  clientSecret String[]
+  redirectUris String[]
   pkceRequired Boolean  @default(false) // Proof Key for Code Exchange
   createdAt    DateTime @default(now())
 }
